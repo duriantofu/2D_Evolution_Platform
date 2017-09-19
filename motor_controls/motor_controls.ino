@@ -79,6 +79,7 @@ void loop() {
       x = inString.toInt();
       inString = "";
       
+      //printouts to see input x and y position pt.1
 //      Serial.print("<x,y> = <");
 //      Serial.print(x);
       
@@ -87,6 +88,7 @@ void loop() {
       y = inString.toInt();
       inString = "";
       
+      //printouts to see input x and y position pt.2
 //      Serial.print(",");
 //      Serial.print(y);
 //      Serial.println(">");
@@ -99,6 +101,7 @@ void loop() {
 
       dmFlag = true;
       
+      //printouts to see current x and y position
 //      Serial.print("Stepper 1 (x) is currently at: ");
 //      Serial.println(stepper1.currentPosition());
 //
@@ -109,13 +112,6 @@ void loop() {
     
    
   }
-  if (stepper1.distanceToGo() == 0) {
-    stepper1.disableOutputs();
-  }
-
-  if (stepper2.distanceToGo() == 0) {
-    stepper2.disableOutputs();
-  }
 
   if (dmFlag && stepper1.distanceToGo()==0 && stepper2.distanceToGo() == 0) {
     Serial.print("x Position:");
@@ -125,18 +121,17 @@ void loop() {
     dmFlag = false;
   }
 
-//  a0_val = analogRead(a0pin);
-//  analogWrite(uvledpin, (int)round((a0_val/1023)*255));
-//  Serial.println((int)round(((float)a0_val*255)/1023));
-  //blocking run, this needs to be called for every step?
+  if (stepper1.distanceToGo() == 0) {
+    stepper1.disableOutputs();
+  }
+
+  if (stepper2.distanceToGo() == 0) {
+    stepper2.disableOutputs();
+  }
   
-
-  //if (counter >= 5) stepper1.run(); counter = 0;
-
   stepper1.run();
   stepper2.run();
 
   analogWrite(uvledpin,uvledval);
 
-  //counter++;
 }
